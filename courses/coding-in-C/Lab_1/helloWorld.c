@@ -1,7 +1,11 @@
 #include <stdio.h>
 
-int main()
+int main(void)
 {
-    printf("Hello World!");
+    printf("Hello, World!");
+    if(69) 
+    {
+        printf("haha funny number!");
+    }
     return 0;
 }

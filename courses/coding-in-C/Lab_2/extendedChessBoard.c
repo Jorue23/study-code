@@ -1,12 +1,11 @@
 #include<stdio.h>
 #include<string.h>
 
-int drawLetterRows();
-int drawBetweenLine();
-int drawFields(int lineNumber);
+void drawLetterRows();
+void drawBetweenLine();
+void drawFields(int lineNumber);
 
 int MAX_LINES = 8;
-int currentLine;
 char LETTER_ROWS[] = "ABCDEFGH";
 char WHITE_FIELD[] = "|   ";
 char BLACK_FIELD[] = "|###";
@@ -15,7 +14,7 @@ int main()
 {  
     drawLetterRows();
     drawBetweenLine();
-    for(currentLine = 0; currentLine < MAX_LINES; currentLine++)
+    for(int currentLine = 0; currentLine < MAX_LINES; currentLine++)
     {
         drawFields(currentLine);
         drawBetweenLine();
@@ -24,7 +23,7 @@ int main()
     return 0;
 }
 
-int drawLetterRows()
+void drawLetterRows()
 {
     printf("   ");
     for(int i = 0; i < strlen(LETTER_ROWS); i++)
@@ -32,49 +31,37 @@ int drawLetterRows()
         printf("   %c", LETTER_ROWS[i]);
     }
     printf("\n");
-    return 0;
 }
 
-int drawBetweenLine()
+void drawBetweenLine()
 {
     printf("    ");
-    for(int plus = 0; plus < strlen(LETTER_ROWS)+1; plus++)
+    for(int plus = 0; plus < strlen(LETTER_ROWS); plus++)
     {
         printf("+");
-        for(int h=0; h < 3 && plus < strlen(LETTER_ROWS); h++)
-        {
-            printf("-");
-        }
+        printf("---");
     }
+    printf("+");
     printf("  \n");
-    return 0;
 }
 
-int drawFields(int lineNumber)
+void drawFields(int lineNumber)
 {
-    printf("  ");
-    printf("%d ", 8 - lineNumber);
+    printf("  %d ", 8 - lineNumber);
     if(lineNumber%2 == 0)
     {
 
         for(int o = 0; o < 4; o++)
         {
-            printf("%s", BLACK_FIELD);
-            printf("%s", WHITE_FIELD);
-
+            printf("%s%s", BLACK_FIELD, WHITE_FIELD);
         }
-        printf("|");
     }
     else
     {
-        for(int k = 0; k < 4; k++)
+        for(int o = 0; o < 4; o++)
         {
-            printf("%s", WHITE_FIELD);
-            printf("%s", BLACK_FIELD);
-        }
-        printf("|");
-        
+            printf("%s%2s", WHITE_FIELD, BLACK_FIELD);
+        }   
     }
-    printf(" %d\n", 8 - currentLine);
-    return 0;
+    printf("| %d\n", 8 - lineNumber);
 }

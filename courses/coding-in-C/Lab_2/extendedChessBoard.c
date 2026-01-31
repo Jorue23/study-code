@@ -4,6 +4,7 @@
 void drawLetterRows();
 void drawBetweenLine();
 void drawFields(int lineNumber);
+void drawSpaces(int spaces);
 
 int MAX_LINES = 8;
 char LETTER_ROWS[] = "ABCDEFGH";
@@ -25,7 +26,7 @@ int main()
 
 void drawLetterRows()
 {
-    printf("   ");
+    drawSpaces(3);
     for(int i = 0; i < strlen(LETTER_ROWS); i++)
     {
         printf("   %c", LETTER_ROWS[i]);
@@ -35,19 +36,21 @@ void drawLetterRows()
 
 void drawBetweenLine()
 {
-    printf("    ");
+    drawSpaces(4);
     for(int plus = 0; plus < strlen(LETTER_ROWS); plus++)
     {
         printf("+");
         printf("---");
     }
     printf("+");
-    printf("  \n");
+    drawSpaces(2);
+    printf("\n");
 }
 
 void drawFields(int lineNumber)
 {
-    printf("  %d ", 8 - lineNumber);
+    drawSpaces(2);
+    printf("%d ", 8 - lineNumber);
     if(lineNumber%2 == 0)
     {
 
@@ -64,4 +67,12 @@ void drawFields(int lineNumber)
         }   
     }
     printf("| %d\n", 8 - lineNumber);
+}
+
+void drawSpaces(int spaces)
+{
+    for(int i = 0; i < spaces; i++)
+    {
+        printf(" ");
+    }
 }

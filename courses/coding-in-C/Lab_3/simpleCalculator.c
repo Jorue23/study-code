@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 
 int promptUserFloat(int position);
 void promptUserOperation();
@@ -26,7 +27,7 @@ int promptUserFloat(int position)
         if(scanf("%f", &first) != 1)
         {
             printf("Invalid input!\n");
-            return 1;
+            exit(1);
         }
     }
     else
@@ -34,8 +35,8 @@ int promptUserFloat(int position)
         printf("Please enter another floating point number(e.g. 3.00). ");
         if(scanf("%f", &second) != 1)
         {
-            printf("Invalid input!\n");
-            return 1;
+            printf("Invalid input! DD\n");
+            exit(1);
         }
     }
 }

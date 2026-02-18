@@ -89,6 +89,41 @@ void delete_playlist(Playlist *p_playlist) {
     return;
 }
 
+void delete_element(Song *p_song, Song *p_lastSong) {
+    p_lastSong->p_next = p_song->p_next;
+    free(p_song->artist);
+    free(p_song->title);
+    free(p_song);
+}
+
+void delete_song_by_title(Playlist *p_playlist, char *title) {
+
+    if(p_playlist->p_first == NULL) {
+        printf("Playlist is empty\n");
+        return;
+    }
+
+    if(strcmp(p_playlist->p_first->title, title) == 0) {
+        Song *tmp = p_playlist->p_first;
+        p_playlist->p_first = p_playlist->p_first->p_next;
+        free(tmp->artist);
+        free(tmp->title);
+        free(tmp);
+        return;
+    }
+
+    Song *p_lastSong = p_playlist->p_first;
+    while(p_lastSong->p_next != NULL) {
+        if(strcmp(p_lastSong->p_next->title, title) == 0) {
+            delete_element(p_lastSong->p_next, p_lastSong);
+            return;
+        }
+        p_lastSong = p_lastSong->p_next;
+    }
+
+    printf("Failed to locate song with title: %s\n", title);
+}
+
 int main() {
 
     Playlist newPlaylist;
@@ -103,7 +138,9 @@ int main() {
 
     print_playlist(&newPlaylist);
 
+    delete_song_by_title(&newPlaylist, "Esperanto");
 
+    print_playlist(&newPlaylist);
 
     return 0;
 }

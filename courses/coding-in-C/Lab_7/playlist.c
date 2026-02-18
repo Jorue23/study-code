@@ -70,6 +70,24 @@ void print_playlist(Playlist *p_playlist) {
     
 }
 
+void delete_first(Playlist *p_playlist) {
+    if(p_playlist->p_first == NULL) {
+        return;
+    }
+    Song *currentFirst = p_playlist->p_first;
+    p_playlist->p_first = currentFirst->p_next;
+    free(currentFirst->artist);
+    free(currentFirst->title);
+    free(currentFirst);
+    return;
+}
+
+void delete_playlist(Playlist *p_playlist) {
+    while(p_playlist->p_first) {
+        delete_first(p_playlist);
+    }
+    return;
+}
 
 int main() {
 
@@ -80,6 +98,12 @@ int main() {
     addSong(&newPlaylist, "Esperanto", "Max Herre");
 
     print_playlist(&newPlaylist);
+
+    delete_first(&newPlaylist);
+
+    print_playlist(&newPlaylist);
+
+
 
     return 0;
 }

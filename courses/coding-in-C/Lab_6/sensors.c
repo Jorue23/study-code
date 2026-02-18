@@ -59,6 +59,20 @@ void sensor_detections(Sensor *p_sensor)
     return;
 }
 
+void print_interval(float starts[], float ends[], const char *label)
+{
+    int i = 0;
+    printf("%s detections: ", label);
+
+    while (starts[i] >= 0)
+    {
+        printf("Start: %.2f s End: %.2f s ", starts[i], ends[i]);
+        i++;
+    }
+    printf("\n");
+    return;
+}
+
 void sensor_intervals(int signal[], SensorData data[], const char *label)
 {
 
@@ -97,7 +111,7 @@ void sensor_intervals(int signal[], SensorData data[], const char *label)
     return;
 }
 
-void fusing_sensors(int sensor1_detection[], int sensor2_detection[], int fusion[])
+void fuse_sensors(int sensor1_detection[], int sensor2_detection[], int fusion[])
 {
     for (int i = 0; i < SAMPLE_SIZE; i++)
     {
@@ -108,8 +122,9 @@ void fusing_sensors(int sensor1_detection[], int sensor2_detection[], int fusion
 
 int main() {
 
-    Sensor sensor1 = {1, 0.8};
-    Sensor sensor2 = {2, 0.7};
+    Sensor sensor1 = {0.8};
+    Sensor sensor2 = {0.7};
+    int fusion[SAMPLE_SIZE];
 
     if (read_data("sensor1.txt", &sensor1) < 0)
     {
@@ -123,8 +138,12 @@ int main() {
     sensor_detections(&sensor1);
     sensor_detections(&sensor2);
 
-    sensor_intervals(&sensor1.object_detection, sensor1.data, "Sensor 1");
-    sensor_intervals(&sensor2.object_detection, sensor2.data, "Sensor 2");
+    sensor_intervals(sensor1.object_detection, sensor1.data, "Sensor 1");
+    sensor_intervals(sensor2.object_detection, sensor2.data, "Sensor 2");
+
+    fuse_sensors(sensor1.object_detection, sensor2.object_detection, fusion);
+
+    sensor_intervals(fusion, sensor1.data, "Fused sensor data");
 
     return 0;
 }

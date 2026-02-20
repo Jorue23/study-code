@@ -39,7 +39,7 @@ void addSong(Playlist *p_playlist, char *p_title, char *p_artist) {
         free(newSong->title);
         free(newSong);
         return;
-        //if this fails, also free newSong struct because it has to have been initialized by now
+        //if this fails also free newSong struct because it has to have been initialized by now
     }
     strcpy(newSong->title, p_title);
     strcpy(newSong->artist, p_artist);
@@ -124,6 +124,74 @@ void delete_song_by_title(Playlist *p_playlist, char *title) {
     printf("Failed to locate song with title: %s\n", title);
 }
 
+int count_songs(Playlist *p_playlist) {
+    if(!p_playlist->p_first) {
+        return 0;
+    }
+    int i = 1;
+    Song *currentSong = p_playlist->p_first;
+    while(currentSong->p_next != NULL) {
+        i++;
+        currentSong = currentSong->p_next;
+    }
+    return i;
+}
+
+void add_song_at_position(Playlist *p_playlist, char *p_title, char *p_artist, int position) {
+
+    position -= 1;
+    int total = count_songs(p_playlist);
+    //print position+1 because we reduced to 0 based system at first
+    if (position < 0) {
+        printf("%s%i%s\n", "Position ", position+1, " is zero or less then zero. Please start at one!");
+        return;
+    }
+    if (position > total) {
+        printf("%s%i%s\n", "Position ", position+1, " is out of bounds!");
+        return;
+    }
+
+    // Reuse addSong if inserting at the end
+    if (position == total) {
+        addSong(p_playlist, p_title, p_artist);
+        return;
+    }
+
+    Song *newSong = malloc(sizeof *newSong);
+    if (!newSong) { 
+        printf("Memory allocation failed\n");
+        return; 
+    }
+
+    newSong->title = malloc(strlen(p_title) + 1);
+    newSong->artist = malloc(strlen(p_artist) + 1);
+    if (!newSong->title || !newSong->artist) {
+        printf("Memory allocation failed\n");
+        free(newSong->title);
+        free(newSong->artist);
+        free(newSong);
+        return;
+    }
+    strcpy(newSong->title, p_title);
+    strcpy(newSong->artist, p_artist);
+
+    if (position == 0) {
+        newSong->p_next = p_playlist->p_first;
+        p_playlist->p_first = newSong;
+        return;
+    }
+
+    // Walk to the node just before the target position -2 because relative count starts with 1, but list starts with 0
+    Song *current = p_playlist->p_first;
+    for (int i = 0; i < position - 1; i++) {
+        current = current->p_next;
+    }
+
+
+    newSong->p_next = current->p_next;
+    current->p_next = newSong;
+}
+
 int main() {
 
     Playlist newPlaylist;
@@ -131,16 +199,36 @@ int main() {
     addSong(&newPlaylist, "Crawling", "Linkin Park");
     addSong(&newPlaylist, "Layla", "Eric Clapton");
     addSong(&newPlaylist, "Esperanto", "Max Herre");
+    addSong(&newPlaylist, "Burn it Down", "Linkin Park");
+    addSong(&newPlaylist, "Thunderstruck", "ACDC");
+    addSong(&newPlaylist, "Zombified", "Falling in Reverse");
 
     print_playlist(&newPlaylist);
+
+    printf("--------------------------------------\n");
 
     delete_first(&newPlaylist);
 
     print_playlist(&newPlaylist);
 
+    printf("--------------------------------------\n");
+
     delete_song_by_title(&newPlaylist, "Esperanto");
 
     print_playlist(&newPlaylist);
+
+    printf("--------------------------------------\n");
+
+    printf("%i\n", count_songs(&newPlaylist));
+
+    printf("--------------------------------------\n");
+
+    add_song_at_position(&newPlaylist, "Deutschland", "Rammstein", 3);
+
+    printf("--------------------------------------\n");
+
+    print_playlist(&newPlaylist);
+
 
     return 0;
 }

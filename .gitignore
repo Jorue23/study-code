@@ -17,3 +17,4 @@ DocumentLayout.json
 build/
 obj/
 bin/
+.vscode/tasks.json

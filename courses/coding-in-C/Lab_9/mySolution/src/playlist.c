@@ -110,3 +110,41 @@ void delete_playlist(Playlist *playlist)
     while (playlist->p_head)
         delete_firstSong(playlist);
 }
+
+Song* find_song_by_title(Playlist *p_playlist, const char *p_title)
+{
+    Song *current_song = malloc(sizeof(p_playlist->p_head));
+    current_song = p_playlist->p_head;
+    while (current_song != NULL)
+    {
+        if(strcmp(current_song->title, *p_title)) {
+            return current_song;
+        }
+        current_song = current_song->p_nextSong;
+    }
+    return NULL;
+}
+
+int count_songs_recursive(const Song *p_current) {
+    if(p_current == NULL) {
+        return NULL;
+    }
+    return 1 + count_songs_recursive(p_current->p_nextSong);
+}
+
+void sort_playlist_by_title(Playlist *playlist) {
+    Song *pivot = playlist->p_head;
+    Song *pre = playlist->p_head;
+    Song *curr = playlist->p_head;
+
+    while(curr != getTail(playlist->p_head)->p_nextSong) {
+        if(strcmp(curr->title, pivot->title) )
+    }
+}
+
+Song *getTail(Song *p_cur) {
+    while(p_cur != NULL && p_cur->p_nextSong != NULL) {
+        p_cur = p_cur->p_nextSong;
+    }
+    return p_cur;
+}

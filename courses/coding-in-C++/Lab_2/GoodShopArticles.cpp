@@ -14,8 +14,8 @@ private:
 
 public:
 
-    Article(string name, double price, int stock, string category, int id)
-        : name(name), price(price), stock(stock), id(id), category(category) {
+    Article(string name, double price, int stock, string category, const int id)
+        : name{name} , price{price}, stock{stock}, id{id}, category{category} {
             if (price < 0.0) {
                 price = 0.0;
             }

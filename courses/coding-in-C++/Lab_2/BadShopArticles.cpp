@@ -13,12 +13,12 @@ public:
     double price;
     int stock;
     string* category;   //Warum category dynamisch?
-    int id;             // muss const sein
+    int id;             // sollte const sein
 
     Article(string name, double price, int stock, string category, int id) {
         name = name;    
         price = price;
-        stock = stock;      // bei den zuweisungen kann es je nach compiler zu Problemen kommen welches name oder price zB gemeint ist. Entweder Namen ändern oder name(name) zB benutzen.
+        stock = stock;      // bei den zuweisungen kann es je nach compiler zu Problemen kommen welches name oder price zB gemeint ist. Entweder Namen ändern oder name{name} zB benutzen.
         this->id = id;      
         this->category = new string;    // macht keinen Sinn mit new zu erzeugen
         *this->category = category;
@@ -41,18 +41,18 @@ public:
         return price;
     }
 
-    double getPrice() {     //wird nicht verwendet
+    double getPrice() {     //wird nicht verwendet sollte außerdem const sein
         return price;
     }
 
-    bool isAvailable() {
+    bool isAvailable() {    //sollte const sein
         if (stock > 0)
             return true;    //Klammern fehlen
         else
             return false;   //ebenso
     }
 
-    void printInfo() {
+    void printInfo() {      //Sollte const sein
         cout << "Article: " << name << endl;
         cout << "Category: " << *category << endl;
         cout << "Price: " << price << endl;

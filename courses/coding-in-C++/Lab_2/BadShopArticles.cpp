@@ -2,7 +2,7 @@
 #include <string>
 #include <iomanip>      //wird nicht verwendet
 
-using namespace std;
+using namespace std;    //keine namespaces verwenden
 
 class Article {
 
@@ -25,19 +25,19 @@ public:
     }
 
     void setPrice(double price) {   //keine checks ob mehr als 0
-        price = price;
+        price = price;              //nicht klar welches price gemeint ist
     }
 
     void sell(int amount) {
-        stock = stock - amount;     //keine checks ob das überhaupt valid ist
+        stock = stock - amount;     //keine checks ob das überhaupt valid ist. nicht klar welches stock gemeint ist
     }
 
     void restock(int amount) {
         this->stock += amount;      //keine checks ob das valid ist 
     }
 
-    double applyDiscount(double percent) {
-        price = price - price * percent / 100;  //warum ist das nen double und kein void? so wie alle anderen
+    double applyDiscount(double percent) {          //warum ist das nen double und kein void? so wie alle anderen
+        price = price - price * percent / 100;  
         return price;
     }
 
@@ -45,7 +45,7 @@ public:
         return price;
     }
 
-    bool isAvailable() {    //sollte const sein
+    bool isAvailable() {    //sollte const sein, kann Einzeiler sein
         if (stock > 0)
             return true;    //Klammern fehlen
         else
@@ -61,7 +61,7 @@ public:
     }
 };
 
-int main() {
+int main() {    //many magic numbers
     Article a("Laptop", 999.99, 10, "Electronics", 101);    // schlechter name
 
     a.sell(15);
@@ -69,7 +69,7 @@ int main() {
     a.price = -100;     // setPrice sollte verwendet werden
     a.applyDiscount(150);
 
-    if (a.isAvailable()) cout << "Article available" << endl;   //das funktioniert nicht weil in isAvailable die klammern fehlen außerdem sollten hier auch klammern und eine neue Zeile verwendet werden.
-
+    if (a.isAvailable()) cout << "Article available" << endl;   //geschweifte Klammern und richtige if struktur verwenden
+    
     a.printInfo();
 }

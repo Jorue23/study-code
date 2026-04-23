@@ -17,12 +17,12 @@ class DrinkBuilder {
         static constexpr int defaultTemperature = 50;
 
     public:
-        DrinkBuilder setName(const std::string& newName) {
+        DrinkBuilder& setName(const std::string& newName) {
             name = newName;
             return *this;
         }
 
-        DrinkBuilder setSugar(int amount) {
+        DrinkBuilder& setSugar(int amount) {
             if (amount > maxSugar || amount < 0) {
                 cout << "\nThe amount of sugar you entered was invalid. The amount will default to: " << defaultSugar << endl;
                 sugarAmount = defaultSugar;
@@ -33,7 +33,7 @@ class DrinkBuilder {
             return *this;
         }
 
-        DrinkBuilder setTemperature(int newTemperature) {
+        DrinkBuilder& setTemperature(int newTemperature) {
             if (newTemperature > maxTemperature || newTemperature < 0) {
                 cout << "\nThe temperature you entered was invalid. The amount will default to: " << defaultTemperature << endl;
                 temperature = defaultTemperature;
@@ -44,7 +44,7 @@ class DrinkBuilder {
             return *this;
         }
 
-        DrinkBuilder setWithMilk(bool milk) {
+        DrinkBuilder& setWithMilk(bool milk) {
             withMilk = milk;
             return *this;
         }

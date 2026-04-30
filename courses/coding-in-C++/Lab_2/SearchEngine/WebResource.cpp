@@ -1,4 +1,4 @@
-/*
+/**
  * @file WebResource.cpp
  * @brief This file implements the WebResource class.
 */

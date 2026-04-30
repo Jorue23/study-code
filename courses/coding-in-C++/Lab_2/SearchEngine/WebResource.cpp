@@ -1,24 +1,41 @@
-#include <string>
+/*
+ * @file WebResource.cpp
+ * @brief This file implements the WebResource class.
+*/
 
 
-class WebResource {
-    private:
-        std::string url;
-        std::string content;
-        int importance;
+#include "WebResource.hpp"
 
+WebResource::WebResource()
+    : url(""), content(""), ranking(0) {}
 
-    public:
-        WebResource(std::string url, std::string content, int importance)
-            : url(url), content(content), importance(importance) {}
+WebResource::WebResource(const std::string &url, const std::string &content, int ranking)
+    : url(url), content(content), ranking(ranking) {}
 
-        std::string getContent() {
-            return this->content;
-        }
+std::string WebResource::getContent() const {
+    return this->content;
+}
 
-};
+void WebResource::setContent(const std::string &content) {
+    this->content = content;
+}
 
-int main() {
+std::string WebResource::getUrl() const {
+    return this->url;
+}
 
-    return 0;
+void WebResource::setUrl(const std::string &url) {
+    this->url = url;
+}
+
+int WebResource::getRanking() const {
+    return this->ranking;
+}
+
+void WebResource::setRanking(int ranking) {
+    this->ranking = ranking;
+}
+
+bool WebResource::isPopular() const {
+    return this->ranking >= POPULARITY_THRESHOLD;
 }

@@ -16,7 +16,7 @@ class SearchQuery {
 
         static constexpr int MAX_RESULTS_DEFAULT = 4;
         std::string query;
-        int max_results;
+        int maxResults;
 
     public:
 
@@ -33,7 +33,7 @@ class SearchQuery {
          * @param[in] query Text content the user is search for
          * @param max_results Max number of results matching the search to be shown to the user.
          */
-        SearchQuery(const std::string &query, int max_results);
+        SearchQuery(const std::string &query, int maxResults);
 
         /**
          * @brief Returns the query of the SearchQuery object.

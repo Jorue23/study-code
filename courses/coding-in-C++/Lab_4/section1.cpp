@@ -7,21 +7,27 @@ class Vector2D {
         double x;
         double y;
     public:
-        Vector2D() {}
+        Vector2D()
+            : x(0.0), y(0.0) {}
 
         Vector2D(double x, double y) 
             : x(x), y(y) {}
 
-        double getX() {
+        void operator+=(const Vector2D &vec) {
+            this->x += vec.getX();
+            this->y += vec.getY();
+        }
+
+        double getX() const {
             return this->x;
         }
 
-        double getY() {
+        double getY() const {
             return this->y;
         }
 
-        void printCoords() {
-            std::cout << "X Value: " << this->x << " Y Value: " << this->y << std::endl;
+        void printCoords() const {
+            std::cout << "X Value: " << this->getX() << " Y Value: " << this->getY() << std::endl;
         }
 
         float getLength() {
@@ -29,11 +35,16 @@ class Vector2D {
         }
 
         float getLength(int precision) {
-            float value = sqrt(x * x + y * y);
+            float value = this->getLength();
             double factor = std::pow(10.0, precision);
             return std::round(value * factor) / factor;
         }
 };
+
+Vector2D operator+(const Vector2D &vec, const Vector2D &vec2) {
+    return Vector2D(vec.getX() + vec2.getX(),
+                    vec.getY() + vec2.getY());
+}
 
 
 int main() {
@@ -41,6 +52,6 @@ int main() {
     Vec.printCoords();
     std::cout << Vec.getX() << " " << Vec.getY() << std::endl;
     std::cout << "Length not rounded: " << Vec.getLength() << std::endl;
-    std::cout << "Value rounded to 7 decimals: " << Vec.getLength(1) << std::endl;
+    std::cout << "Value rounded to 1 decimal: " << Vec.getLength(1) << std::endl;
 
 }

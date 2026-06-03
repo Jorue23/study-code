@@ -18,6 +18,15 @@ public:
     }
 };
 
+class Alarm
+{
+public:
+    void show_alarm(float value)
+    {
+        std::cout << "Alarm: " << value << " C\n";
+    }
+};
+
 class TemperatureSensor
 {
 private:
@@ -25,6 +34,7 @@ private:
 
     Display display;
     Logger logger;
+    Alarm alarm;
 
 public:
     void set_temperature(float value)
@@ -34,6 +44,9 @@ public:
         // directly coupled to other classes
         display.show_temperature(temperature);
         logger.log_temperature(temperature);
+        if(temperature > 30.0f) {
+            alarm.show_alarm(temperature);
+        }
     }
 };
 

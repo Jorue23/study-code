@@ -23,12 +23,7 @@ public:
     void update_lane_offset(double offset);
 
     double get_speed() const;
-    double get_steering_angle() const;
     double get_lane_offset() const;
-
-    std::string &get_model();
-
-    bool is_brake_light_on() const;
 
     void print_status() const;
 };

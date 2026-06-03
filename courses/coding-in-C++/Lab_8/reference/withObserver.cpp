@@ -72,6 +72,16 @@ public:
     }
 };
 
+
+class Alarm : public Observer {
+    public:
+        void update(float value) override {
+            if(value > 30.0 ) {
+                std::cout << "Alarm! Temeperature at: " << value << " celsius!" << std::endl;
+            }
+        }
+};
+
 // ======================================================
 // Main
 // ======================================================
@@ -82,11 +92,15 @@ int main()
 
     Display display;
     Logger logger;
+    Alarm alarm;
+
 
     sensor.add_observer(&display);
     sensor.add_observer(&logger);
+    sensor.add_observer(&alarm);
 
     sensor.set_temperature(23.5f);
+    sensor.set_temperature(34.5f);
 
     return 0;
 }

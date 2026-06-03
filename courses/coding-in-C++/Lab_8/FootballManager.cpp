@@ -37,7 +37,7 @@ InjuredPlayer::InjuredPlayer(const std::string &name, int age)
 {
 }
 
-void InjuredPlayer::train(int intensity)
+void InjuredPlayer::train(int intensity)            //LSP verletzt. Die abgeleitete Klasse macht was ganz anderes. Ein injured boolean und dem entsprechend zusätzliche abfrage in train beim normalen player macht mehr sinn
 {
     if (intensity > 30)
     {

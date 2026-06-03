@@ -1,4 +1,5 @@
 #include "bugHunt_vehicle.hpp"
+#include "bugHunt_vehicle.hpp"
 
 Vehicle::Vehicle(const std::string &vehicle_model)
     : model(vehicle_model),
@@ -41,7 +42,7 @@ void Vehicle::brake(double amount_kmh)
 
     if (speed_kmh < 0.0)
     {
-        speed_kmh = amount_kmh;
+        speed_kmh = 0.0;
     }
 }
 
@@ -60,24 +61,9 @@ double Vehicle::get_speed() const
     return speed_kmh;
 }
 
-double Vehicle::get_steering_angle() const
-{
-    return steering_angle;
-}
-
 double Vehicle::get_lane_offset() const
 {
     return lane_offset_m;
-}
-
-std::string &Vehicle::get_model()
-{
-    return model;
-}
-
-bool Vehicle::is_brake_light_on() const
-{
-    return brake_light_on;
 }
 
 void Vehicle::print_status() const

@@ -8,6 +8,7 @@ E: 3 Design
 F: 6 Mainenance
 G: 5 Testing & Integration
 
+Ordered:
 C: 1 Planning
 E: 3 Design
 A: 4 Implementation
